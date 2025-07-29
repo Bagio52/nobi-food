@@ -14,11 +14,13 @@
             <thead class="border-bottom font-weight-bold" style="background-color: #079421; color: white;">
                 <tr>
                     {{-- <th>No</th> --}}
-                    <th>Nama Produk</th>
+                    <th>Nama PRODUK</th>
                     <th>Gambar</th>
                     <th>Harga</th>
                     <th>Waktu Pembuatan</th>
                     <th>Aksi</th>
+
+
                 </tr>
             </thead>
             <tbody>
