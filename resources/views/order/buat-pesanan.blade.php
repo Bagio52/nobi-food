@@ -63,13 +63,11 @@
             </div>
 
             <div class="mb-3">
-                <label><b> Silahkan melakukan pembayaran Dp senilai 20% dari total harga melalui :</b></label> <br>
-                <li>Dana 083197303511 </li>
-                <li>OVO 083197303511 </b></li>
-                <li>Gopay 083197303511 </b></li>
-                <li>BCA 083197303511 </b></li>
-                <li>BNI 083197303511 </b></li>
-                <li>Mandiri 083197303511 </b></li>
+                <label>Silahkan melakukan pembayaran.</label><br>
+                <label>Dp minimal 20% dari total harga melalui :</label>
+                <label>Bank : BRI a.n Agisva Elvatikha Rahmatillah
+                    308301049892530</b></label>
+
             </div>
 
             <div class="mb-3">
@@ -112,7 +110,7 @@
                 }).format(total_harga);
 
                 // Cek kuota
-                if (jumlah > sisaKuota  ) {
+                if (jumlah > sisaKuota) {
                     warning.style.display = 'block';
                     warning.innerText =
                         `Jumlah pesanan melebihi kuota yang tersedia (${sisaKuota   }).
