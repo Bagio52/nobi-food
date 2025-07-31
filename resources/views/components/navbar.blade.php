@@ -50,7 +50,7 @@
             color: #079421;
         }
         .content h2 {
-            font-size: 2.5rem;
+            font-size: 2.0rem;
             font-weight: bold;
             margin-bottom: 15px;
             text-align: center;
@@ -64,6 +64,7 @@
             margin-bottom: 5px;
             line-height: 1.6;
         }
+
         footer {
             background-color: #f8f9fa;
             padding: 20px;
