@@ -139,7 +139,7 @@
         @yield('content')
     </div>
     <footer class="text-center mt-5">
-        <p>&copy; 2025 nobi.food. All rights reserved.</p>
+        <p>&copy; 2025 nobi.food-bySbg. All rights reserved.</p>
         <p>Hommade - Sertifikasi Halal by MUI - Magelang - Good food Good Mood</p>
     </footer>
 </body>
