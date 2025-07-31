@@ -18,7 +18,7 @@
                 <div class="col-md-3 mb-3">
                     <div class="card h-100 shadow-sm border-0">
                         <img src="{{ asset('storage/' . $produk->gambar) }}" class="card-img-top"
-                            alt="{{ $produk->nama_produk }}" style="height: 250px; width: 250; object-fit: cover;">
+                            alt="{{ $produk->nama_produk }}" style="height: 350px;  object-fit: cover;">
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title">{{ $produk->nama_produk }}</h5>
                             <p class="card-text text-muted mb-3">Harga: <strong>Rp
