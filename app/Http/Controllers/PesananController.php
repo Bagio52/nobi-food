@@ -132,7 +132,7 @@ class PesananController extends Controller
                     'id_produk'           => $produks->id,
                     'id_pelanggan'        => $pelanggan->id,
                     'tanggal_pengambilan' => $tanggal_pengambilan->toDateString(),
-                    'tanggal_pesan'       => Carbon::now(),
+                    'tanggal_pesan'       => now(),
                     'jumlah_pesanan'      => $jumlahUntukHariIni,
                     'nomor_antrian'       => $nomor_antrian,
                     'bukti_pembayaran'    => $buktiPath,
