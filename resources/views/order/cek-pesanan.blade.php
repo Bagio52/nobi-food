@@ -13,7 +13,7 @@
         <input type="hidden" name="id_produk" value="{{ $id_produk }}">
 
 
-        <label style="display: block; margin-bottom: 10px;">Tanggal Pengambilan:</label>
+        <label style="display: block; margin-bottom: 10px;">Pilih Tanggal untuk Pengambilan pesanan:</label>
         <input type="date" name="tanggal_pengambilan" required
             style="width: 100%; padding: 10px; border: 1px solid #ccc; margin-bottom: 20px; border-radius: 5px;">
 
