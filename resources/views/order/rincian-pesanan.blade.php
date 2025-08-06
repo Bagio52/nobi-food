@@ -8,56 +8,36 @@
             <h2 class="text-center" style="font-display: ">Form Rincian Data Pesanan</h2>
 
             <div class="mb-4">
-                <p style="text-align: left"><strong>Nama Pelanggan:</strong> {{ $pelanggan->nama_pelanggan }}</p>
-                <p style="text-align: left"><strong>Alamat Pelanggan:</strong> {{ $pelanggan->alamat }}</p>
-                <p style="text-align: left"><strong>Nomor Telepon:</strong> {{ $pelanggan->no_telp }}</p>
-
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Tanggal Pesan</th>
-                                <th>Tanggal Pengambilan</th>
-                                <th>No Antrian</th>
-                                <th>Produk</th>
-                                <th>Jumlah</th>
-                                <th>Harga Satuan</th>
-                                <th>Total Harga</th>
-                                {{-- <th>Bukti Pembayaran</th> --}}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($semuaPesanan as $pesanan)
-                                @php
-                                    $detail = $detailPesanan->firstWhere('id_pesanan', $pesanan->id);
-                                @endphp
-                                <tr>
-                                    <td>{{ $pesanan->created_at->format('d/m/Y H:i') }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($pesanan->tanggal_pengambilan)->format('d/m/Y') }}</td>
-                                    <td>{{ $pesanan->nomor_antrian }}</td>
-                                    <td>{{ $pesanan->produk->nama_produk }}</td>
-                                    <td>{{ $pesanan->jumlah_pesanan }}</td>
-                                    <td>Rp {{ number_format($pesanan->produk->harga, 0, ',', '.') }}</td>
-                                    <td>Rp {{ number_format($detail->total_harga ?? 0, 0, ',', '.') }}</td>
-
-                                    {{-- <td>
-                                        @if ($pesanan->bukti_pembayaran)
-                                            <img src="{{ asset('storage/' . $pesanan->bukti_pembayaran) }}" width="100">
-                                        @else
-                                            Tidak ada
-                                        @endif
-                                    </td> --}}
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                <p style="text-align: left"><strong>Nama Pelanggan :</strong> {{ $pelanggan->nama_pelanggan }}</p>
+                <p style="text-align: left"><strong>Alamat Pelanggan :</strong> {{ $pelanggan->alamat }}</p>
+                <p style="text-align: left"><strong>Nomor Telepon :</strong> {{ $pelanggan->no_telp }}</p>
+                @foreach ($semuaPesanan as $pesanan)
+                    @php
+                        $detail = $detailPesanan->firstWhere('id_pesanan', $pesanan->id);
+                    @endphp
+                    <p style="text-align: left"><strong>Tanggal Pesan :</strong>
+                        {{ $pesanan->created_at->format('d/m/Y H:i') }} </p>
+                    <p style="text-align: left"><strong>Tanggal Pengambilan :</strong>
+                        {{ \Carbon\Carbon::parse($pesanan->tanggal_pengambilan)->format('d/m/Y') }} </p>
+                    <p style="text-align: left"><strong>Nomor Antrian :</strong> {{ $pesanan->nomor_antrian }} </p>
+                    <p style="text-align: left"><strong>Produk:</strong> {{ $pesanan->produk->nama_produk }} </p>
+                    <p style="text-align: left"><strong>Jumlah Pesanan : </strong> {{ $pesanan->jumlah_pesanan }} </p>
+                    <p style="text-align: left"><strong>Harga Satuan : </strong> Rp
+                        {{ number_format($pesanan->produk->harga, 0, ',', '.') }} </p>
+                    <p style="text-align: left"><strong>Total Harga : </strong> Rp
+                        {{ number_format($detail->total_harga ?? 0, 0, ',', '.') }}</p>
+                    {{-- <p><strong>Bukti Pembayaran</strong>
+                        @if ($pesanan->bukti_pembayaran)
+                            <img src="{{ asset('storage/' . $pesanan->bukti_pembayaran) }}" width="100">
+                        @else
+                            Tidak ada
+                        @endif
+                    </p> --}}
+                @endforeach
             </div>
-
         </div>
-    </div>
-    <button id="download-btn" class="btn btn-primary mt-3">Unduh</button>
-    <a href="{{ route('dashboard') }}" class="btn btn-secondary mt-3">Selesai</a>
+        <button id="download-btn" class="btn btn-primary mt-3">Unduh</button>
+        <a href="{{ route('dashboard') }}" class="btn btn-secondary mt-3">Selesai</a>
     </div>
 
     <script>
