@@ -11,14 +11,14 @@
             <button type="submit" class="btn btn-secondary">Filter</button>
         </form>
 
-        <form id="sort-form" class="form-inline">
+        {{-- <form id="sort-form" class="form-inline">
             <label for="sort-order" class="mr-2">Urutkan:</label>
             <select id="sort-order" class="form-control mr-2">
                 <option value="asc">Tanggal Terlama</option>
                 <option value="desc">Tanggal Terbaru</option>
             </select>
             <button type="submit" class="btn btn-secondary">Filter</button>
-        </form>
+        </form> --}}
 
         <form id="search-name-form" class="form-inline">
             <label for="search-name" class="mr-2">Cari nama:</label>
@@ -72,7 +72,7 @@
             </thead>
             <tbody>
                 @foreach ($pesanans as $pesanan)
-                    <tr data-created="{{ $pesanan->created_at }}">
+                    <tr data-tanggal_pengambilan="{{ $pesanan->tanggal_pengambilan }}">
                         <td>{{ $pesanan->created_at->format('d/m/Y H:i') }}</td>
                         <td>{{ \Carbon\Carbon::parse($pesanan->tanggal_pengambilan)->format('d/m/Y') }}</td>
                         <td>{{ $pesanan->nomor_antrian }}</td>
@@ -114,10 +114,10 @@
             const filterDate = document.getElementById('filter-date').value;
             const rows = document.querySelectorAll('#pesanan-table tbody tr');
             rows.forEach(row => {
-                const createdDate = new Date(row.getAttribute('data-created'));
+                const pengambilanDate = new Date(row.getAttribute('data-tanggal_pengambilan'));
                 const filterDateObj = new Date(filterDate);
                 if (filterDate) {
-                    row.style.display = (createdDate.toDateString() === filterDateObj.toDateString()) ? '' :
+                    row.style.display = (pengambilanDate.toDateString() === filterDateObj.toDateString()) ? '' :
                         'none';
                 } else {
                     row.style.display = '';
@@ -125,18 +125,18 @@
             });
         });
 
-        document.getElementById('sort-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const sortOrder = document.getElementById('sort-order').value;
-            const tbody = document.querySelector('#pesanan-table tbody');
-            const rows = Array.from(tbody.querySelectorAll('tr'));
-            rows.sort((a, b) => {
-                const dateA = new Date(a.getAttribute('data-created'));
-                const dateB = new Date(b.getAttribute('data-created'));
-                return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
-            });
-            rows.forEach(row => tbody.appendChild(row));
-        });
+        // document.getElementById('sort-form').addEventListener('submit', function(event) {
+        //     event.preventDefault();
+        //     const sortOrder = document.getElementById('sort-order').value;
+        //     const tbody = document.querySelector('#pesanan-table tbody');
+        //     const rows = Array.from(tbody.querySelectorAll('tr'));
+        //     rows.sort((a, b) => {
+        //         const dateA = new Date(a.getAttribute('data-created'));
+        //         const dateB = new Date(b.getAttribute('data-created'));
+        //         return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+        //     });
+        //     rows.forEach(row => tbody.appendChild(row));
+        // });
 
         document.getElementById('search-name-form').addEventListener('submit', function(event) {
             event.preventDefault();
