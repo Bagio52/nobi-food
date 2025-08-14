@@ -3,22 +3,13 @@
 @section('content')
     <h2 class="text-center mb-4">Daftar Pesanan Pelanggan</h2>
 
-    {{-- Filter dan Sort --}}
+
     <div class="d-flex justify-content-between mb-3">
         <form id="filter-form" class="form-inline">
             <label for="filter-date" class="mr-2">Tanggal:</label>
             <input type="date" id="filter-date" class="form-control mr-2">
             <button type="submit" class="btn btn-secondary">Filter</button>
         </form>
-
-        {{-- <form id="sort-form" class="form-inline">
-            <label for="sort-order" class="mr-2">Urutkan:</label>
-            <select id="sort-order" class="form-control mr-2">
-                <option value="asc">Tanggal Terlama</option>
-                <option value="desc">Tanggal Terbaru</option>
-            </select>
-            <button type="submit" class="btn btn-secondary">Filter</button>
-        </form> --}}
 
         <form id="search-name-form" class="form-inline">
             <label for="search-name" class="mr-2">Cari nama:</label>
@@ -27,12 +18,10 @@
         </form>
     </div>
 
-    {{-- Notifikasi --}}
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    {{-- Form Pengaturan Kuota Maksimum --}}
     <div class="mb-4">
         <form action="{{ route('admin.pengaturan.update') }}" method="POST" class="form-inline">
             @csrf
@@ -49,9 +38,6 @@
         </form>
     </div>
 
-
-
-    {{-- Tabel Pesanan --}}
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover text-center" id="pesanan-table"
             style="font-size: 10px;">
@@ -68,6 +54,7 @@
                     <th>Harga</th>
                     <th>Total Harga</th>
                     <th>Bukti Pembayaran</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -93,6 +80,7 @@
                                 Tidak ada
                             @endif
                         </td>
+                        <td>Sudah Dilayani</td>
                     </tr>
                 @endforeach
             </tbody>
@@ -125,18 +113,6 @@
             });
         });
 
-        // document.getElementById('sort-form').addEventListener('submit', function(event) {
-        //     event.preventDefault();
-        //     const sortOrder = document.getElementById('sort-order').value;
-        //     const tbody = document.querySelector('#pesanan-table tbody');
-        //     const rows = Array.from(tbody.querySelectorAll('tr'));
-        //     rows.sort((a, b) => {
-        //         const dateA = new Date(a.getAttribute('data-created'));
-        //         const dateB = new Date(b.getAttribute('data-created'));
-        //         return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
-        //     });
-        //     rows.forEach(row => tbody.appendChild(row));
-        // });
 
         document.getElementById('search-name-form').addEventListener('submit', function(event) {
             event.preventDefault();
