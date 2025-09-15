@@ -38,6 +38,9 @@ Route::get('/dashboard/produk-favorit', [AdminController::class, 'produkFavorit'
 Route::get('/admin/pesanan',[AdminController::class, 'index'])->name('admin.pesanan');
 Route::get('/admin/pesanan/{id}', [AdminController::class, 'detailpesanan'])->name('admin.pesanan.detail');
 Route::post('/admin/pengaturan', [AdminController::class, 'updatePengaturan'])->name('admin.pengaturan.update');
+Route::delete('/admin/pesanan/{id}', [AdminController::class, 'destroyPesanan'])->name('admin.pesanan.destroy');
+Route::patch('/admin/pesanan/{id}/status', [AdminController::class, 'updateStatus'])->name('admin.pesanan.updateStatus');
+
 
 
 Route::get('/admin/produk', [AdminController::class, 'produk'])->name('admin.produk');

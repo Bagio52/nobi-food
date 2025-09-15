@@ -123,8 +123,6 @@ class PesananController extends Controller
                 }
 
                 $jumlahUntukHariIni = min($sisaPesanan, $kuotaTersedia);
-
-                // Hitung nomor antrian
                 $nomor_antrian = Pesanan::whereDate('tanggal_pengambilan', $tanggal_pengambilan)->count() + 1;
 
                 // Simpan pesanan

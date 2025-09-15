@@ -80,7 +80,23 @@
                                 Tidak ada
                             @endif
                         </td>
-                        <td>Sudah Dilayani</td>
+                        <td>
+                            @if ($pesanan->status === 'belum_selesai')
+                                <form action="{{ route('admin.pesanan.updateStatus', $pesanan->id) }}" method="POST"
+                                    style="display:inline;">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" class="btn btn-warning btn-sm">Belum Selesai</button>
+                                </form>
+                            @else
+                                <form action="{{ route('admin.pesanan.updateStatus', $pesanan->id) }}" method="POST"
+                                    style="display:inline;">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" class="btn btn-primary btn-sm">Selesai</button>
+                                </form>
+                            @endif
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -100,15 +116,36 @@
         document.getElementById('filter-form').addEventListener('submit', function(event) {
             event.preventDefault();
             const filterDate = document.getElementById('filter-date').value;
-            const rows = document.querySelectorAll('#pesanan-table tbody tr');
-            rows.forEach(row => {
+            const rows = Array.from(document.querySelectorAll('#pesanan-table tbody tr'));
+            const tbody = document.querySelector('#pesanan-table tbody');
+            const filterDateObj = new Date(filterDate);
+
+            // filter tanggal
+            let filteredRows = rows.filter(row => {
                 const pengambilanDate = new Date(row.getAttribute('data-tanggal_pengambilan'));
-                const filterDateObj = new Date(filterDate);
                 if (filterDate) {
-                    row.style.display = (pengambilanDate.toDateString() === filterDateObj.toDateString()) ? '' :
-                        'none';
-                } else {
-                    row.style.display = '';
+                    return pengambilanDate.toDateString() === filterDateObj.toDateString();
+                }
+                return true;
+            });
+
+            // mengurutkan berdasarkan nomor antrian
+            filteredRows.sort((a, b) => {
+                const nomorA = parseInt(a.cells[2].textContent.trim());
+                const nomorB = parseInt(b.cells[2].textContent.trim());
+                return nomorA - nomorB; // kecil → besar
+            });
+
+            tbody.innerHTML = '';
+
+            filteredRows.forEach(row => {
+                row.style.display = '';
+                tbody.appendChild(row);
+            });
+
+            rows.forEach(row => {
+                if (!filteredRows.includes(row)) {
+                    row.style.display = 'none';
                 }
             });
         });

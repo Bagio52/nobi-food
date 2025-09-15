@@ -48,13 +48,13 @@ class AdminController extends Controller
             ->whereMonth('tanggal_pengambilan', $bulan)
             ->whereYear('tanggal_pengambilan', $tahun)
             ->groupBy('tanggal_pengambilan')
-             ->orderBy('tanggal_pengambilan')
+            ->orderBy('tanggal_pengambilan')
             ->get();
-            // ->select(DB::raw('DATE(created_at) as tanggal_pengambilan'), DB::raw('SUM(jumlah_pesanan) as jumlah_pesanan'))
-            // ->groupBy(DB::raw('DATE(tanggal_pengambilan)'))
-            // ->whereMonth('created_at', $bulan)
-            // ->whereYear('created_at', $tahun)
-            // ->groupBy(DB::raw('DATE(created_at)'))
+        // ->select(DB::raw('DATE(created_at) as tanggal_pengambilan'), DB::raw('SUM(jumlah_pesanan) as jumlah_pesanan'))
+        // ->groupBy(DB::raw('DATE(tanggal_pengambilan)'))
+        // ->whereMonth('created_at', $bulan)
+        // ->whereYear('created_at', $tahun)
+        // ->groupBy(DB::raw('DATE(created_at)'))
 
 
         return response()->json($data);
@@ -85,6 +85,17 @@ class AdminController extends Controller
         return view('admin.pesanan.index', compact('pesanans', 'kuota'));
     }
 
+    public function updateStatus($id)
+    {
+        $pesanan = Pesanan::findOrFail($id);
+
+        $pesanan->status = $pesanan->status === 'belum_selesai' ? 'selesai' : 'belum_selesai';
+        $pesanan->save();
+
+        return redirect()->back()->with('success', 'Status pesanan berhasil diubah.');
+    }
+
+
     public function editPengaturan()
     {
         $kuota = \App\Models\Pengaturan::where('nama', 'kuota')->first();
@@ -104,12 +115,6 @@ class AdminController extends Controller
 
         return back()->with('success', 'Pengaturan kuota maksimum berhasil diperbarui.');
     }
-
-    // public function pesanan()
-    // {
-    //     $pesanans = Pesanan::orderBy('created_at', 'asc')->get();
-    //     return view('admin.pesanan.index', compact('pesanans'));
-    // }
 
     // Menampilkan daftar produk
     public function produk()
